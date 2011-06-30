@@ -15,4 +15,5 @@ setup(name = "fdsend",
       license = "GPL",
       packages = ['fdsend'],
       ext_modules = [Extension(name="_fdsend", sources=['_fdsend.c'])],
+      test_suite = "fdsend.tests",
       )

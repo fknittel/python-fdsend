@@ -1,4 +1,7 @@
 import _fdsend
+import fdsend.tests
+
+tests = fdsend.tests
 
 # Wrap the C module.
 sendfds = _fdsend.sendfds
