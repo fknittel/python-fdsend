@@ -351,12 +351,12 @@ static char module__doc__[] =
 "Errors are raised via the socket.error exception object.";
 
 DL_EXPORT(void)
-initfdsend(void)
+init_fdsend(void)
 {
 	PyObject *m, *sm;
 
 	/* Create the module and add the functions and documentation */
-	m = Py_InitModule3("fdsend", fdsend_methods, module__doc__);
+	m = Py_InitModule3("_fdsend", fdsend_methods, module__doc__);
 	if ((sm = PyImport_ImportModule("socket")) != NULL) {
 		socketmodule_error = PyObject_GetAttrString(sm, "error");
 	}

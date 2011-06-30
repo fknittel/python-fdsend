@@ -3,7 +3,7 @@
 # fdsend setup.py
 # $Id: setup.py,v 1.1.1.1 2004/11/04 06:15:03 mjp Exp $
 
-from distutils.core import setup
+from setuptools import setup
 from distutils.extension import Extension
 
 setup(name = "fdsend",
@@ -13,5 +13,6 @@ setup(name = "fdsend",
       author_email = "mjp-py@pilcrow.madison.wi.us",
       url = "http://pilcrow.madison.wi.us/fdsend",
       license = "GPL",
-      ext_modules = [Extension(name="fdsend", sources=['fdsend.c'])],
+      packages = ['fdsend'],
+      ext_modules = [Extension(name="_fdsend", sources=['_fdsend.c'])],
       )
