@@ -2,9 +2,7 @@
 
 fdsend is yet another file descriptor passing abstraction, specifically for Python. This package offers a few conveniences not commonly found together in other abstractions: sending multiple files at once, sending arbitrary data, and working with both files and file descriptors.
 
-fdsend is free software, licensed under the GPLv2+.
-
-The current version is fdsend-0.1 (03 Nov 2004)
+fdsend is free software, licensed under the GPLv2+. It was originally developed by [Michael J. Pomraning](http://pilcrow.madison.wi.us/).
 
 #Requirements#
 
@@ -36,10 +34,6 @@ Python >= 2.2 is required, as is SCM_RIGHTS support on AF_UNIX sockets. Only Lin
         import errno
         if e[0] == errno.ENOTSOCK:
             print "What did you expect? :)"
-
-#Feedback#
-
-Report problems, bugs, feature requests, successes to me at mjp-py@pilcrow.madison.wi.us.
 
 #Related Interest#
 
