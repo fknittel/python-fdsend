@@ -1,11 +1,10 @@
 fdsend README
 
-$Id: README,v 1.1.1.1 2004/11/04 06:15:03 mjp Exp $
-
 License and Copyright
 ---------------------
 fdsend is free software, licensed under the GPL.  fdsend is Copyright (C) 2004
-Michael J. Pomraning.  Small portions of fdsend are adapted from other sources, see the main source file for details.
+Michael J. Pomraning.  Small portions of fdsend are adapted from other sources,
+see the main source file for details.
 
 docstring
 ---------

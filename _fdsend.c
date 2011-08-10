@@ -1,7 +1,5 @@
 /* fdsend - SCM_RIGHTS file descriptor passing for Python.
  *
- * $Id: fdsend.c,v 1.1.1.1 2004/11/04 06:15:03 mjp Exp $
- *
  * Copyright (C) 2004 Michael J. Pomraning <mjp{AT}pilcrow.madison.wi.us>
  *
  * This program is free software; you can redistribute it and/or modify
