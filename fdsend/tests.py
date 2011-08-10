@@ -1,9 +1,21 @@
 #!/usr/bin/env python
 # vim:set et ts=4 sw=4:
-# GPLv2; (C) 2011 Philipp Kern <pkern@debian.org>
-# Simple test case to verify that fdsend is working correctly.
-# (I.e. both message and fds are sent properly.)  This fails
-# on Debian Lenny/amd64, presumably due to a kernel bug.
+#
+# Copyright (C) 2011 Philipp Kern <pkern@debian.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Lenny has Python 2.5, so we need this.
 from __future__ import with_statement
@@ -17,6 +29,10 @@ import unittest
 import time
 
 class TestFDSend(unittest.TestCase):
+    """Simple test case to verify that fdsend is working correctly. (I.e. both
+    message and fds are sent properly.)  This fails on Debian Lenny/amd64,
+    presumably due to a kernel bug.
+    """
     @staticmethod
     def try_connect(s, fn, n=0):
         try:
@@ -67,4 +83,3 @@ class TestFDSend(unittest.TestCase):
             self.child(socket_filename)
         else:
             self.parent(pid, socket_filename)
-

@@ -6,7 +6,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- * 
+ *
  * Portions of this file -- preliminary defines and socketpair() routine --
  * are derived from scgi version 1.2, which is is Copyright (c) 2004
  * Corporation for National Research Initiatives; All Rights Reserved.
@@ -224,7 +224,7 @@ fdsend_recvfds(PyObject *dummy, PyObject *args, PyObject *kw)
 		return NULL;
 
 	memset(&mh, '\0', sizeof(mh));
-	
+
 	if (numfds > 0) {
 		mh.msg_controllen = CMSG_SPACE(sizeof(int) * numfds);
 		mh.msg_control = PyMem_Malloc(mh.msg_controllen);
@@ -248,7 +248,7 @@ fdsend_recvfds(PyObject *dummy, PyObject *args, PyObject *kw)
 		PyErr_SetFromErrno(socketmodule_error);
 		goto error;
 	}
-	
+
 	if (r != iov.iov_len)
 		_PyString_Resize(&buf, r);
 	cmsg = CMSG_FIRSTHDR(&mh);
