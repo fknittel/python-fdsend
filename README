@@ -17,7 +17,7 @@ adapted from other sources, see the main source file for details.
 Requirements
 ------------
 Python >= 2.2 is required, as is SCM_RIGHTS support on AF_UNIX sockets. Only
-Linux has been tested.
+Linux has been tested.  For setup.py setuptools is needed.
 
 Installation
 ------------
