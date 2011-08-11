@@ -1,2 +1,6 @@
+0.2.0 (TBD)
+  * Added a test case that tests sendfds and recvfds.
+  * Maintainership transferred to Philipp Kern and Fabian Knittel.
+
 0.1 (03 Nov 2004)
-  First release by Michael J. Pomraning
+  * First release by Michael J. Pomraning
