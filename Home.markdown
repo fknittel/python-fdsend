@@ -2,7 +2,7 @@
 
 fdsend is yet another file descriptor passing abstraction, specifically for Python. This package offers a few conveniences not commonly found together in other abstractions: sending multiple files at once, sending arbitrary data, and working with both files and file descriptors.
 
-fdsend is free software, licensed under the GPLv2+. It was originally developed by [Michael J. Pomraning](http://pilcrow.madison.wi.us/).
+fdsend is free software, licensed under the GPLv2+. It was originally developed by [Michael J. Pomraning](http://pilcrow.madison.wi.us/) and is currently maintained by Philipp Kern and Fabian Knittel.
 
 #Requirements#
 
