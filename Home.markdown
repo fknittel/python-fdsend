@@ -35,6 +35,10 @@ Python >= 2.2 is required, as is SCM_RIGHTS support on AF_UNIX sockets. Only Lin
         if e[0] == errno.ENOTSOCK:
             print "What did you expect? :)"
 
+#Feedback#
+
+Please report problems, bugs, feature requests, successes on the [mailing list](https://groups.google.com/group/python-fdsend).
+
 #Related Interest#
 
 [scgi](http://www.mems-exchange.org/software/scgi/) (python) contains a passfd module.
