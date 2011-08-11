@@ -81,7 +81,7 @@ class TestFDSend(unittest.TestCase):
                 self.send_data()
             except: # pylint: disable=W0702
                 # Suppress all exception handling to avoid :class:`TestCase`
-                # from # kicking in.
+                # from kicking in.
                 os._exit(1) # pylint: disable=W0212
             os._exit(0) # pylint: disable=W0212
 
@@ -104,7 +104,6 @@ class TestFDSend(unittest.TestCase):
         data, fds = fdsend.recvfds(sock, 1024, numfds=64)
 
         # Now verify that what we received is what we expected.
-        #
 
         # Exactly one file descriptor.
         self.assertEqual(len(fds), 1)
