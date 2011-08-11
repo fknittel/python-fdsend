@@ -1,2 +1,0 @@
-include setup.py setup.cfg fdsend.c
-include MANIFEST.in COPYING README ChangeLog
