@@ -58,7 +58,8 @@ Errors are raised via the socket.error exception object.
 
 #Known Bugs#
 
-No provision is made to support msg_accrights systems (nor I_SENDFD fd passing).
+- No provision is made to support msg_accrights systems (nor I_SENDFD fd passing).
+- No support for Python 3 yet.
 
 #Feedback#
 
@@ -75,6 +76,7 @@ Please report problems, bugs, feature requests, successes on the [mailing list](
 
 #Related Interest#
 
+- [sendmsg()/recvmsg() patch](http://bugs.python.org/issue6560) (python) aims at adding the low-level methods. Based on this patch, fdsend could be turned into a pure Python module.
 - [scgi](http://www.mems-exchange.org/software/scgi/) (python) contains a passfd module.
 - This [sendmsg](http://www.python.org/pycon/dc2004/papers/51/migration-code/sendmsg/) module (python) is a mostly complete sendmsg interface.
 - [Socket::MsgHdr](http://search.cpan.org/dist/Socket-MsgHdr/lib/Socket/MsgHdr.pm) (perl) offers a full sendmsg interface.
