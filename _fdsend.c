@@ -355,6 +355,10 @@ init_fdsend(void)
 
 	/* Create the module and add the functions and documentation */
 	m = Py_InitModule3("_fdsend", fdsend_methods, module__doc__);
+	if (m == NULL) {
+		return;
+	}
+	/* Fetch reference to socket.error class. */
 	if ((sm = PyImport_ImportModule("socket")) != NULL) {
 		socketmodule_error = PyObject_GetAttrString(sm, "error");
 	}
