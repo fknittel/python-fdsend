@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 
-from setuptools import setup
+try:
+    from setuptools import setup
+    setupopts = {
+            'test_suite':"fdsend.tests",
+        }
+except ImportError:
+    from distutils.core import setup
+    setupopts = {}
 from distutils.extension import Extension
 
 setup(
@@ -30,10 +37,10 @@ setup(
         ],
     packages=['fdsend'],
     ext_modules=[Extension(name="_fdsend", sources=['_fdsend.c'])],
-    test_suite="fdsend.tests",
     long_description="""\
 fdsend is yet another file descriptor passing abstraction, specifically for
 Python.  This package offers a few conveniences not commonly found together in
 other abstractions: sending multiple files at once, sending arbitrary data, and
 working with both files and file descriptors.""",
+    **setupopts
     )
