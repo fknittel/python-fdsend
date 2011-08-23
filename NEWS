@@ -1,3 +1,7 @@
+0.2.1 (23 Aug 2011)
+  * Fixes integer conversion bug in recvfds and sendfds, found by
+    Philipp Kern (via the Debian buildds).
+
 0.2.0 (12 Aug 2011)
   * Added a test case that tests sendfds and recvfds.
   * Maintainership transferred to Philipp Kern and Fabian Knittel.

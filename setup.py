@@ -12,7 +12,7 @@ from distutils.extension import Extension
 
 setup(
     name="fdsend",
-    version="0.2.0",
+    version="0.2.1",
     description="File descriptor passing (via SCM_RIGHTS)",
     author="Michael J. Pomraning",
     author_email="mjp-py@pilcrow.madison.wi.us",
