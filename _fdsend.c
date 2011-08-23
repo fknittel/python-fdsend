@@ -178,15 +178,18 @@ fdsend_sendfds(PyObject *dummy, PyObject *args, PyObject *kw)
 	struct msghdr mh;
 	struct iovec iov;
 	int fd, r, flags = 0;
+	int msg_len;
 	PyObject *fds = Py_None;
 
 	static char *keywords[] = {"fd", "msg", "flags", "fds", 0};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "O&s#|iO:sendfds",
 					 keywords,
 					 obj2fd, &fd,
-					 &iov.iov_base, &iov.iov_len,
-					 &flags, &fds))
+					 &iov.iov_base, &msg_len,
+					 &flags,
+					 &fds))
 		return NULL;
+	iov.iov_len = msg_len;
 
 	memset(&mh, '\0', sizeof(mh));
 	mh.msg_iov = &iov;
@@ -215,13 +218,17 @@ fdsend_recvfds(PyObject *dummy, PyObject *args, PyObject *kw)
 	PyObject *buf;
 	int numfds = 32;
 	int fd, r, flags = 0;
+	int msg_len;
 	PyObject *ret = NULL;
 
 	static char *keywords[] = {"fd", "len", "flags", "numfds", 0};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "O&i|ii:recvfds", keywords,
-					obj2fd, &fd, &iov.iov_len, &flags,
+					obj2fd, &fd,
+					&msg_len,
+					&flags,
 					&numfds))
 		return NULL;
+	iov.iov_len = msg_len;
 
 	memset(&mh, '\0', sizeof(mh));
 
