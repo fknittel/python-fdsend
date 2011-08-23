@@ -134,3 +134,8 @@ class TestFDSend(unittest.TestCase):
         tmp_fp.flush()
         fdsend.sendfds(client_sock, self.DIRECT_DATA, fds=[tmp_fp])
         # tmp_fp will be cleaned up by deleting the temporary directory.
+
+    def test_negative_recv(self):
+        """fdsend.recvfds does not accept negative buffer lengths.
+        """
+        self.assertRaises(ValueError, fdsend.recvfds, 0, -1)

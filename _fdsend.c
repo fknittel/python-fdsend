@@ -228,6 +228,10 @@ fdsend_recvfds(PyObject *dummy, PyObject *args, PyObject *kw)
 					&flags,
 					&numfds))
 		return NULL;
+	if (msg_len < 0) {
+		PyErr_SetString(PyExc_ValueError, "Negative len passed to recvfds");
+		return NULL;
+	}
 	iov.iov_len = msg_len;
 
 	memset(&mh, '\0', sizeof(mh));
