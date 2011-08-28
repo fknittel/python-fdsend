@@ -8,7 +8,8 @@ fdsend is free software, licensed under the GPLv2+. It was originally developed 
 
 #Requirements#
 
-Python >= 2.2 is required, as is SCM_RIGHTS support on AF_UNIX sockets. Only Linux has been tested.
+Python >= 2.2 is required, as is SCM_RIGHTS support on AF_UNIX sockets. Only Linux has been tested. Setuptools is required for automatic unit test runs at 
+build-time.
 
 #Installation#
 
