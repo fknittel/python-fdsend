@@ -26,6 +26,7 @@ import tempfile
 import unittest
 import time
 import shutil
+import sys
 
 def try_connect(sock, sock_fn, retries=30):
     """Try connecting with `sock` to `sock_fn`.  The connection is attempted
@@ -109,7 +110,11 @@ class TestFDSend(unittest.TestCase):
         self.assertEqual(len(fds), 1)
 
         # Received correct direct data.
-        self.assertEqual(data, self.DIRECT_DATA)
+        if sys.version_info >= (3,):
+            wanted_data = bytes(self.DIRECT_DATA, encoding='ascii')
+        else:
+            wanted_data = self.DIRECT_DATA
+        self.assertEqual(data, wanted_data)
 
         # Verify file descriptor position.
         transferred_fp = os.fdopen(fds[0], 'r')

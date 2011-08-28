@@ -1,6 +1,7 @@
 /* fdsend - SCM_RIGHTS file descriptor passing for Python.
  *
  * Copyright (C) 2004 Michael J. Pomraning <mjp{AT}pilcrow.madison.wi.us>
+ * Copyright (C) 2011 Philipp Kern <pkern@debian.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +24,20 @@
 
 #include "Python.h"
 
+struct module_state {
+	PyObject *socketmodule_error;
+};
+
+#if PY_MAJOR_VERSION >= 3
+#define IS_PY3K
+#define INITERROR return NULL
+#define GETSTATE(m) ((struct module_state*)PyModule_GetState(m))
+#else
+#define INITERROR return
+#define GETSTATE(m) (&_state)
+static struct module_state _state;
+#endif
+
 #ifndef __OpenBSD__
 #ifndef _XOPEN_SOURCE
 #define _XOPEN_SOURCE 500
@@ -36,8 +51,6 @@
 #include <sys/socket.h>
 #include <sys/uio.h>
 #include <stddef.h>
-
-static PyObject *socketmodule_error = NULL;
 
 /* obj2fd
  *
@@ -173,7 +186,7 @@ error:
 }
 
 static PyObject *
-fdsend_sendfds(PyObject *dummy, PyObject *args, PyObject *kw)
+fdsend_sendfds(PyObject *m, PyObject *args, PyObject *kw)
 {
 	struct msghdr mh;
 	struct iovec iov;
@@ -204,13 +217,17 @@ fdsend_sendfds(PyObject *dummy, PyObject *args, PyObject *kw)
 	free_packed_control(&mh);
 
 	if (r < 0)
-		return PyErr_SetFromErrno(socketmodule_error);
+		return PyErr_SetFromErrno(GETSTATE(m)->socketmodule_error);
 
+#ifndef IS_PY3K
 	return PyInt_FromLong((long) r);
+#else
+	return PyLong_FromLong((long) r);
+#endif
 }
 
 static PyObject *
-fdsend_recvfds(PyObject *dummy, PyObject *args, PyObject *kw)
+fdsend_recvfds(PyObject *m, PyObject *args, PyObject *kw)
 {
 	struct msghdr mh;
 	struct iovec iov;
@@ -242,9 +259,17 @@ fdsend_recvfds(PyObject *dummy, PyObject *args, PyObject *kw)
 		if (NULL == mh.msg_control) return NULL;
 	}
 
+#ifndef IS_PY3K
 	buf = PyString_FromStringAndSize((char *) 0, iov.iov_len);
+#else
+	buf = PyBytes_FromStringAndSize((char *) 0, iov.iov_len);
+#endif
 	if (NULL == buf) goto error;
+#ifndef IS_PY3K
 	iov.iov_base = (void *)PyString_AS_STRING(buf);
+#else
+	iov.iov_base = (void *)PyBytes_AS_STRING(buf);
+#endif
 	/* uncomment the following for clearer strace(1)ing */
 	/* memset(iov.iov_base, '\0', iov.iov_len); */
 
@@ -256,12 +281,16 @@ fdsend_recvfds(PyObject *dummy, PyObject *args, PyObject *kw)
 	Py_END_ALLOW_THREADS
 
 	if (r < 0) {
-		PyErr_SetFromErrno(socketmodule_error);
+		PyErr_SetFromErrno(GETSTATE(m)->socketmodule_error);
 		goto error;
 	}
 
 	if (r != iov.iov_len)
+#ifndef IS_PY3K
 		_PyString_Resize(&buf, r);
+#else
+		_PyBytes_Resize(&buf, r);
+#endif
 	cmsg = CMSG_FIRSTHDR(&mh);
 	if (NULL == cmsg
 	    || cmsg->cmsg_level != SOL_SOCKET
@@ -359,18 +388,57 @@ static char module__doc__[] =
 "\n"
 "Errors are raised via the socket.error exception object.";
 
+#ifdef IS_PY3K
+static int _fdsend_traverse(PyObject *m, visitproc visit, void *arg) {
+	Py_VISIT(GETSTATE(m)->socketmodule_error);
+	return 0;
+}
+
+static int _fdsend_clear(PyObject *m) {
+	Py_CLEAR(GETSTATE(m)->socketmodule_error);
+	return 0;
+}
+
+static struct PyModuleDef moduledef = {
+	PyModuleDef_HEAD_INIT,
+	"_fdsend",
+	module__doc__,
+	sizeof(struct module_state),
+	fdsend_methods,
+	NULL,
+	_fdsend_traverse,
+	_fdsend_clear,
+	NULL
+};
+#endif
+
+#ifndef IS_PY3K
 DL_EXPORT(void)
 init_fdsend(void)
+#else
+PyObject *
+PyInit__fdsend(void)
+#endif
 {
 	PyObject *m, *sm;
 
 	/* Create the module and add the functions and documentation */
+#ifndef IS_PY3K
 	m = Py_InitModule3("_fdsend", fdsend_methods, module__doc__);
+#else
+	m = PyModule_Create(&moduledef);
+#endif
+
 	if (m == NULL) {
-		return;
+		INITERROR;
 	}
 	/* Fetch reference to socket.error class. */
 	if ((sm = PyImport_ImportModule("socket")) != NULL) {
-		socketmodule_error = PyObject_GetAttrString(sm, "error");
+		GETSTATE(m)->socketmodule_error =
+			PyObject_GetAttrString(sm, "error");
 	}
+
+#ifdef IS_PY3K
+	return m;
+#endif
 }

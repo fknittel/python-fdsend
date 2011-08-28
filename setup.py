@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 
+import sys
+
 try:
     from setuptools import setup
     setupopts = {
             'test_suite':"fdsend.tests",
         }
+    if sys.version_info >= (3,):
+        setupopts['use_2to3'] = True
 except ImportError:
     from distutils.core import setup
     setupopts = {}
