@@ -17,7 +17,8 @@ adapted from other sources, see the main source file for details.
 Requirements
 ------------
 Python >= 2.2 is required, as is SCM_RIGHTS support on AF_UNIX sockets. Only
-Linux has been tested.  For setup.py setuptools is needed.
+Linux has been tested.  Setuptools is required for automatic unit test runs at
+build-time.
 
 Installation
 ------------
@@ -74,8 +75,8 @@ Example
 
 Known Bugs
 ----------
-No provision is made to support msg_accrights systems (nor I_SENDFD fd
-passing).
+- No provision is made to support msg_accrights systems (nor I_SENDFD fd
+  passing).
 
 Feedback
 --------
