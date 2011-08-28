@@ -119,6 +119,9 @@ class TestFDSend(unittest.TestCase):
         transferred_fp.seek(0)
         self.assertEqual(transferred_fp.read(), self.FILE_DATA)
 
+        transferred_fp.close()
+        sock.close()
+
     def send_data(self):
         """Creates a new UNIX socket named `sock_fn` and a temporary file and
         transmits some data and the file descriptor of the temporary file
@@ -134,6 +137,10 @@ class TestFDSend(unittest.TestCase):
         tmp_fp.flush()
         fdsend.sendfds(client_sock, self.DIRECT_DATA, fds=[tmp_fp])
         # tmp_fp will be cleaned up by deleting the temporary directory.
+
+        tmp_fp.close()
+        client_sock.close()
+        sock.close()
 
     def test_negative_recv(self):
         """fdsend.recvfds does not accept negative buffer lengths.
