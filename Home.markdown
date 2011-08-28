@@ -59,7 +59,7 @@ Errors are raised via the socket.error exception object.
 #Known Bugs#
 
 - No provision is made to support msg_accrights systems (nor I_SENDFD fd passing).
-- No support for Python 3 yet.
+- No support for Python 3 yet (coming soon, see the code repository).
 
 #Feedback#
 
