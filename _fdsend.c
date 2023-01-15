@@ -234,7 +234,8 @@ fdsend_recvfds(PyObject *m, PyObject *args, PyObject *kw)
 	struct cmsghdr *cmsg;
 	PyObject *buf;
 	int numfds = 32;
-	int fd, r, flags = 0;
+	int fd, flags = 0;
+	size_t r;
 	int msg_len;
 	PyObject *ret = NULL;
 
