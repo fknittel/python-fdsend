@@ -22,6 +22,7 @@
  * Corporation for National Research Initiatives; All Rights Reserved.
  */
 
+#define PY_SSIZE_T_CLEAN
 #include "Python.h"
 
 struct module_state {
@@ -191,7 +192,7 @@ fdsend_sendfds(PyObject *m, PyObject *args, PyObject *kw)
 	struct msghdr mh;
 	struct iovec iov;
 	int fd, r, flags = 0;
-	int msg_len;
+	Py_ssize_t msg_len;
 	PyObject *fds = Py_None;
 
 	static char *keywords[] = {"fd", "msg", "flags", "fds", 0};
